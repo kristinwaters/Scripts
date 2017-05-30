@@ -10,7 +10,7 @@
 #### Constants
 
 title="My System Information"
-RIGHT_NOW=$(date + "%x %r %Z")
+RIGHT_NOW=$(date +"%x %r %Z")
 TIME_STAMP="Updated on $RIGHT_NOW by $USER"
 
 #### Functions
@@ -52,14 +52,14 @@ home_space()
 {
     # Only root can get this information
 
-    if [ "$(id -u) = "0" ]; then
+    if [ "$(id -u)" = "0" ]; then
         echo "<h2>Home directory space by user</h2>"
         echo "<pre>"
         format="%8s%10s%10s   %-s\n"
         printf "$format" "Dirs" "Files" "Blocks" "Directory"
         printf "$format" "----" "-----" "------" "---------"
 
-        if [ $(id -u) = "0"; then
+        if [ "$(id -u)" = "0"]; then
             dir_list="/home/*"
         else
             dir_list=$HOME
@@ -97,7 +97,7 @@ _EOF_
 
 usage ()
 {
-    echo "usage: sysinfo_page [[[-f file] [i]] | [-h]]"
+    echo "usage: sysinfo_page [[[-f file] [-i]] | [-h]]"
 }
 
 #### Main
@@ -143,7 +143,6 @@ if [ "$interactive" = "1" ]; then
             exit 1
         fi
     fi
-fi
 else
     echo "interactive is off"
 fi
